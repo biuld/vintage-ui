@@ -1,28 +1,52 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <md-app md-mode="fixed" id="app">
+    <md-app-toolbar class="md-primary">
+      <tool-bar @toggleMenu="toggleMenu" />
+    </md-app-toolbar>
+
+    <md-app-drawer :md-active.sync="menuVisible" md-swipeable>
+      <navigation />
+    </md-app-drawer>
+
+    <md-app-content>
+      <transition name="bounce" :duration="300">
+        <router-view></router-view>
+      </transition>
+    </md-app-content>
+  </md-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Navigation from "./components/Navigation";
+import ToolBar from "./components/ToolBar";
+import bgImg from "./assets/bg.png";
 
 export default {
-  name: 'app',
+  name: "app",
+  data: function() {
+    return {
+      menuVisible: false,
+      bg: bgImg
+    };
+  },
   components: {
-    HelloWorld
+    navigation: Navigation,
+    "tool-bar": ToolBar
+  },
+  methods: {
+    toggleMenu: function() {
+      this.menuVisible = !this.menuVisible;
+    },
+    background: function() {
+      return {backgroundImage: 'url(' + this.bg + ')'};
+    }
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  min-height: 100vh;
+  min-width: 100vw;
 }
 </style>

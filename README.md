@@ -1,5 +1,9 @@
 # vintage-ui
 
+效果预览
+
+![示例图片](./png/vintage-ui.png)
+
 ## Project setup
 ```
 npm install
